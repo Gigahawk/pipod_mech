@@ -37,8 +37,8 @@ usb_c_offset = lip_offset + 0.3
 usb_c_width = 3.3
 usb_c_length = 9.2
 usb_c_fillet = 1.6
-usb_c_chamfer_width = 2.7
-usb_c_chamfer_depth = 2.4
+usb_c_chamfer_width = 3.5
+usb_c_chamfer_depth = 3
 
 usb_c_chamfer_points = [
     (0, usb_c_chamfer_width),
@@ -47,11 +47,13 @@ usb_c_chamfer_points = [
 
 result = (
     cq.Workplane("XY").tag("base_plane")
-    .box(base_length, base_width, base_height, centered=[True, True, False])
+    .box(
+        base_length, base_width, base_height, centered=[True, True, False])
     .faces(">Z").workplane()
-    .box(raised_length, base_width, raised_height)
+    .box(
+        raised_length, base_width, raised_height, centered=[True, True, False])
     .faces(">Z").workplane().center(0, lip_offset)
-    .box(lip_length, lip_width, lip_height)
+    .box(lip_length, lip_width, lip_height, centered=[True, True, False])
     .edges("|Z").edges(">Z").fillet(lip_radius)
     .workplaneFromTagged("base_plane").center(-hole_distance/2, hole_offset)
     .circle(hole_dia/2).cutThruAll()
