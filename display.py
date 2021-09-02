@@ -8,8 +8,8 @@ screen_lip_depth = 0.6
 screen_lip_inset = screen_width - 46.25
 
 active_offset = 3.5
-stp_active_offset_x = 1.7
-stp_active_offset_y = 1.9
+stp_active_offset_x = 2.6
+stp_active_offset_y = 1.5
 stp_width = 48
 stp_height = 34.8
 stp_thickness = 2
@@ -29,16 +29,21 @@ hole_x_offset1 = 2.75
 hole_y_offset1 = 5.50
 
 # Bottom left
-hole_dia2 = 2.85
+hole_dia2 = 2.90
 hole_width2 = 5.30
 hole_x_offset2 = 2.75
 hole_y_offset2 = 3.00
 
 # Bottom right
-hole_dia3 = 3.05
+hole_dia3 = 3.10
 hole_width3 = 3.90
 hole_y_offset3 = 2.00
 hole_x_offset3 = 1.80
+
+cable_cutout_width = 24.0
+cable_cutout_offset = 6.0
+cable_cutout_ofst = screen_height/2 - cable_cutout_width/2 - cable_cutout_offset
+cable_cutout_depth = 1.0
 
 result = (
     cq.Workplane("XY").tag("base_plane")
@@ -93,5 +98,14 @@ result = (
     .center(
         -screen_width/2 + active_offset - stp_active_offset_x,
         -screen_height/2 + active_offset - stp_active_offset_y)
-    .rect(stp_width + 100, stp_height, centered=False).cutBlind(stp_thickness/1.5)
+    .rect(
+        stp_width + 100,
+        stp_height,
+        centered=False).cutBlind(stp_thickness/1.5)
+    .workplaneFromTagged("base_plane")
+    .center(screen_width/2, -cable_cutout_ofst)
+    .rect(
+        -cable_cutout_depth,
+        cable_cutout_width,
+        centered=[False, True]).cutThruAll()
 )
