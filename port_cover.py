@@ -15,11 +15,11 @@ base_length = 30.4
 base_height = 1.5
 
 raised_length = 24.0
-raised_height = 1.0
+raised_height = 0.9
 
 lip_width = 3.9
 lip_length = 22.8
-lip_height = 0.4
+lip_height = 0.5
 lip_radius = 1.0
 
 # Distance from lip top to base bottom
@@ -33,7 +33,7 @@ hole_distance = 27.0
 _hole_offset = 1.3
 hole_offset = (base_width - hole_dia)/2 - _hole_offset
 
-usb_c_offset = lip_offset + 0.3
+usb_c_offset = lip_offset + 0.2
 usb_c_width = 3.3
 usb_c_length = 9.2
 usb_c_fillet = 1.6
