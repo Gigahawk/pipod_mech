@@ -22,9 +22,9 @@ lip_length = 22.8
 lip_height = 0.5
 lip_radius = 1.0
 
-# Distance from lip top to base bottom
-_lip_offset = 5.1
-lip_offset = 2*_lip_offset - lip_width - base_width
+# Distance from lip top to base top
+_lip_offset = 0.6
+lip_offset = base_width/2 - lip_width/2 - _lip_offset
 
 hole_dia = 1.4
 hole_distance = 27.0
