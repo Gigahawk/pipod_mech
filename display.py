@@ -9,7 +9,7 @@ screen_lip_inset = screen_width - 46.25
 
 active_offset = 3.5
 stp_active_offset_x = 2.6
-stp_active_offset_y = 1.5
+stp_active_offset_y = 1.6
 stp_width = 48
 stp_height = 34.8
 stp_thickness = 2
@@ -40,8 +40,8 @@ hole_width3 = 3.90
 hole_y_offset3 = 2.00
 hole_x_offset3 = 1.80
 
-cable_cutout_width = 24.0
-cable_cutout_offset = 6.0
+cable_cutout_width = 25.0
+cable_cutout_offset = 6.0  # Distance from top of display to cable edge
 cable_cutout_ofst = screen_height/2 - cable_cutout_width/2 - cable_cutout_offset
 cable_cutout_depth = 1.0
 
