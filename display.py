@@ -45,6 +45,28 @@ cable_cutout_offset = 6.0  # Distance from top of display to cable edge
 cable_cutout_ofst = screen_height/2 - cable_cutout_width/2 - cable_cutout_offset
 cable_cutout_depth = 1.0
 
+component_cutout_dims = [
+    # Button
+    (
+     (1.8, -2.6),  # Position
+     (6.3, 4.5),   # Dimensions
+     2.1,          # Depth
+     ),
+    # SMC LED
+    (
+     (-4.1, 13.8),
+     (3.7, 1.4),
+     1
+     ),
+    # DAC
+    (
+     (-22.0, 3.6),
+     (13.0, 11.4),
+     1.6
+     )
+    ]
+
+
 result = (
     cq.Workplane("XY").tag("base_plane")
     .box(
@@ -56,6 +78,7 @@ result = (
         screen_width + padding_offset, screen_height, padding_thickness,
         centered=[True, True, False])
     .edges("|Z and <X and <Y").fillet(padding_offset)
+    .faces(">Z").workplane().tag("back_plane")
     .workplaneFromTagged("interface_plane")
     .center((screen_width - padding_tab_width)/2, -screen_height/2)
     .box(
@@ -109,3 +132,7 @@ result = (
         cable_cutout_width,
         centered=[False, True]).cutThruAll()
 )
+
+for cd in component_cutout_dims:
+    position, dims, depth = cd
+    result = result.workplaneFromTagged("back_plane").center(*position).rect(*dims).cutBlind(-depth)
