@@ -13,6 +13,7 @@ cq.Workplane.rounded_rect = rounded_rect
 base_width = 5.7
 base_length = 30.4
 base_height = 1.5
+base_chamfer = 0.6
 
 raised_length = 24.0
 raised_height = 0.9
@@ -39,6 +40,7 @@ usb_c_length = 9.2
 usb_c_fillet = 1.6
 usb_c_chamfer_width = 3.5
 usb_c_chamfer_depth = 3
+usb_c_x_offset = -2.625
 
 usb_c_chamfer_points = [
     (0, usb_c_chamfer_width),
@@ -49,6 +51,7 @@ result = (
     cq.Workplane("XY").tag("base_plane")
     .box(
         base_length, base_width, base_height, centered=[True, True, False])
+    .faces("<Z").edges("|Y").chamfer(base_chamfer)
     .faces(">Z").workplane()
     .box(
         raised_length, base_width, raised_height, centered=[True, True, False])
@@ -61,10 +64,10 @@ result = (
     .circle(hole_dia/2).cutThruAll()
     .workplaneFromTagged("base_plane")
     .transformed(
-        offset=cq.Vector(-usb_c_length/2, 0, 0), rotate=cq.Vector(0, 90, 0))
+        offset=cq.Vector(-usb_c_length/2 + usb_c_x_offset, 0, 0), rotate=cq.Vector(0, 90, 0))
     .center(0, usb_c_offset)
     .transformed(rotate=cq.Vector(0, 0, 180))
     .polyline(usb_c_chamfer_points).close().cutBlind(usb_c_length)
-    .workplaneFromTagged("base_plane").center(0, usb_c_offset)
+    .workplaneFromTagged("base_plane").center(usb_c_x_offset, usb_c_offset)
     .rounded_rect(usb_c_length, usb_c_width, usb_c_fillet).cutThruAll()
 )
